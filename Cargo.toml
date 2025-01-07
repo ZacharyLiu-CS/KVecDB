@@ -1,0 +1,13 @@
+[package]
+name = "smashdb"
+version = "0.1.0"
+authors = ["zachary liu <zacharyliu97@gmal.com>"]
+edition = "2021"
+
+[dependencies]
+actix-web = "4"
+faiss = "0.12.1"
+log = { version = "0.4", features = ["std", "serde"] }
+env_logger = "0.9"
+colored = "2.0"
+clap = { version = "4.5.23", features = ["derive"] }
