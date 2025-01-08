@@ -1,5 +1,6 @@
 mod logger;
 mod webserver;
+mod vecindex;
 
 use clap::Parser;
 use logger::init_logger;

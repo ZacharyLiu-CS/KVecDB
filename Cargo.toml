@@ -6,7 +6,7 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
-faiss = "0.12.1"
+faiss = { version = "0.12.1" }
 log = { version = "0.4", features = ["std", "serde"] }
 env_logger = "0.9"
 colored = "2.0"
