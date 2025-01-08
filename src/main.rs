@@ -1,9 +1,9 @@
 mod logger;
+mod webserver;
 
 use clap::Parser;
 use logger::init_logger;
-use actix_web::{get, web, App, HttpServer, Responder};
-use log::{debug,info,warn,error};
+use log::info;
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -11,22 +11,12 @@ struct Args {
     log_level: String,
 }
 
-#[get("/hello/{name}")]
-async fn greet(name: web::Path<String>) -> impl Responder {
-    debug!("Call greet(): Hello {}!", name);
-    format!("Hello {}!", name)
-}
-
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let args = Args::parse();
     init_logger(&args.log_level);
 
-    HttpServer::new(|| {
-        App::new().service(greet)
-    })
-    .bind(("127.0.0.1", 8080))?
-    .run()
-    .await
+    info!("Starting webserver...");
+    webserver::run().await
+
 }

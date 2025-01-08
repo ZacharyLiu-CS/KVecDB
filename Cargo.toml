@@ -11,3 +11,4 @@ log = { version = "0.4", features = ["std", "serde"] }
 env_logger = "0.9"
 colored = "2.0"
 clap = { version = "4.5.23", features = ["derive"] }
+usearch = { version = "2.16.9", features = ["simsimd", "openmp", "fp16lib"]}
