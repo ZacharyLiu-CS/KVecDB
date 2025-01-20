@@ -7,6 +7,42 @@
 
 // use faiss::{index_factory, Index, MetricType};
 
+use faiss::{Idx, Index};
+
+pub struct FaissIndex {
+    pub index: Box<dyn Index>,
+}
+
+pub struct IndexQueryResult{
+    pub distances :Vec<f32>,
+    pub labels: Vec<Idx>,
+}
+
+pub trait VecIndexOperater {
+    fn insert_vectors(&mut self, data: &[f32], labels: &[Idx]) -> ();
+
+    fn search_vectors(&mut self, query: &[f32], k: usize) -> Option<IndexQueryResult>;
+}
+
+impl VecIndexOperater for FaissIndex {
+    fn insert_vectors(&mut self, data: &[f32], labels: &[Idx]) -> () {
+        let _ = self.index.add_with_ids(data, labels);
+    }
+
+    fn search_vectors(&mut self, query: &[f32], k: usize) -> Option<IndexQueryResult> {
+        match self.index.search(query, k) {
+            Ok(result) => {
+                let index_query_result = IndexQueryResult {
+                    distances: result.distances,
+                    labels: result.labels,
+                };
+                Some(index_query_result)
+            }
+            Err(_) => None, 
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use faiss::{index_factory, Index, MetricType};
@@ -35,6 +71,5 @@ mod tests {
         ];
         let result = index.search(&my_query, 5).unwrap();
         assert!(result.distances.iter().all(|x| *x > 0.));
-
     }
 }
