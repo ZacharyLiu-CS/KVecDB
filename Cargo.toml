@@ -1,5 +1,5 @@
 [package]
-name = "smashdb"
+name = "KVecDB"
 version = "0.1.0"
 authors = ["zachary liu <zacharyliu97@gmal.com>"]
 edition = "2021"

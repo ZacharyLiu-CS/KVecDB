@@ -1,4 +1,4 @@
-# SmashDB
+# KVecDB
 A distributed vector databse server supporting restful api.
 
 ## Running command
